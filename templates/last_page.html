@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Last Page</title>
+    <style>
+        body { font-family: Calibri, sans-serif; font-size: 9pt; margin: 0; }
+        .container { width: 210mm; min-height: 287mm; margin: 10mm 0; padding: 0; box-sizing: border-box; }
+        .notes { margin: 20px 0; }
+        .note { margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="notes">
+            {% for note in data.notes %}
+                <p class="note">{{ note }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

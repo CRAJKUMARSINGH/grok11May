@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deviation Statement</title>
+    <style>
+        body {
+            font-family: Calibri, sans-serif;
+            font-size: 9pt;
+            margin: 0;
+        }
+        .container {
+            width: 200mm;
+            min-height: 190mm;
+            margin: 20mm 10mm 10mm 12mm;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        table {
+            width: 100%;
+            max-width: 200mm;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: left;
+            vertical-align: top;
+            overflow: hidden;
+            height: auto;
+            box-sizing: border-box;
+            word-wrap: break-word;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .description {
+            text-align: justify;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Deviation Statement</h2>
+            <!-- Debug output to check data structure -->
+            <p>Debug: data['items'] type = {{ data['items'].__class__.__name__ }}</p>
+            <p>Debug: data['items'] count = {{ data['items'] | length }}</p>
+            <p>Debug: data.summary type = {{ data.summary.__class__.__name__ }}</p>
+            <!-- Optional header data -->
+            <p>Agreement No: {{ header_data[12][4] if header_data and header_data | length > 12 and header_data[12] | length > 4 else '48/2024-25' }}</p>
+            <p>Name of Work: {{ header_data[8][1] if header_data and header_data | length > 8 and header_data[8] | length > 1 else 'Electric Repair and MTC work at Govt. Ambedkar hostel Ambamata, Govardhanvilas, Udaipur' }}</p>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th width="6.67mm">ITEM No.</th>
+                    <th width="120.00mm">Description</th>
+                    <th width="6.67mm">Unit</th>
+                    <th width="6.67mm">Qty as per Work Order</th>
+                    <th width="6.67mm">Rate</th>
+                    <th width="6.67mm">Amt as per Work Order Rs.</th>
+                    <th width="6.67mm">Qty Executed</th>
+                    <th width="6.67mm">Amt as per Executed Rs.</th>
+                    <th width="6.67mm">Excess Qty</th>
+                    <th width="6.67mm">Excess Amt Rs.</th>
+                    <th width="6.67mm">Saving Qty</th>
+                    <th width="6.67mm">Saving Amt Rs.</th>
+                    <th width="15.00mm">REMARKS/REASON.</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Check if data['items'] is iterable and not empty -->
+                {% if data['items'] and data['items'] is iterable and data['items'] | length > 0 %}
+                    {% for item in data['items'] %}
+                        <tr>
+                            <td width="6.67mm">{{ item.serial_no | default("") }}</td>
+                            <td class="description" width="120.00mm">{{ item.description | default("") }}</td>
+                            <td width="6.67mm">{{ item.unit | default("") }}</td>
+                            <td width="6.67mm">{{ item.qty_wo if item.unit|trim else "" }}</td>
+                            <td width="6.67mm">{{ item.rate if item.unit|trim else "" }}</td>
+                            <td width="6.67mm">{{ item.amt_wo if item.unit|trim and item.rate|trim else "" }}</td>
+                            <td width="6.67mm">{{ item.qty_bill if item.unit|trim else "" }}</td>
+                            <td width="6.67mm">{{ item.amt_bill if item.unit|trim and item.rate|trim else "" }}</td>
+                            <td width="6.67mm">{{ item.excess_qty if item.unit|trim else "" }}</td>
+                            <td width="6.67mm">{{ item.excess_amt if item.unit|trim and item.rate|trim else "" }}</td>
+                            <td width="6.67mm">{{ item.saving_qty if item.unit|trim else "" }}</td>
+                            <td width="6.67mm">{{ item.saving_amt if item.unit|trim and item.rate|trim else "" }}</td>
+                            <td width="15.00mm">{{ item.remark | default("") }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr><td colspan="13">No deviation items available</td></tr>
+                {% endif %}
+                <!-- Check if data.summary is a dictionary -->
+                {% if data.summary and data.summary is mapping %}
+                    <tr>
+                        <td></td>
+                        <td>Grand Total Rs.</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ data.summary.work_order_total | default("") }}</td>
+                        <td></td>
+                        <td>{{ data.summary.executed_total | default("") }}</td>
+                        <td></td>
+                        <td>{{ data.summary.overall_excess | default("") }}</td>
+                        <td></td>
+                        <td>{{ data.summary.overall_saving | default("") }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Add Tender Premium ({{ "%.2f%%" % (data.summary.premium.percent * 100 if data.summary is defined and data.summary.premium.percent is not none else data.premium_percent * 100 if data.premium_percent is not none else "") }})</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ data.summary.tender_premium_f | default("") }}</td>
+                        <td></td>
+                        <td>{{ data.summary.tender_premium_h | default("") }}</td>
+                        <td></td>
+                        <td>{{ data.summary.tender_premium_j | default("") }}</td>
+                        <td></td>
+                        <td>{{ data.summary.tender_premium_l | default("") }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Grand Total including Tender Premium Rs.</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ data.summary.grand_total_f | default("") }}</td>
+                        <td></td>
+                        <td>{{ data.summary.grand_total_h | default("") }}</td>
+                        <td></td>
+                        <td>{{ data.summary.grand_total_j | default("") }}</td>
+                        <td></td>
+                        <td>{{ data.summary.grand_total_l | default("") }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            {% if data.summary.net_difference is defined and data.summary.net_difference > 0 %}
+                                Overall Excess With Respect to the Work Order Amount Rs.
+                            {% else %}
+                                Overall Saving With Respect to the Work Order Amount Rs.
+                            {% endif %}
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ data.summary.net_difference | default("") }}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" style="text-align: center;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" style="text-align: center;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" style="text-align: center;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" style="text-align: center;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" style="text-align: center;"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="8" style="text-align: center;"></td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="13">No summary data available</td></tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

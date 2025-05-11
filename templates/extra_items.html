@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Extra Items</title>
+    <style>
+        body { font-family: Calibri, sans-serif; font-size: 9pt; margin: 0; }
+        .container { width: 190mm; min-height: 287mm; margin: 10mm auto; padding: 10mm; box-sizing: border-box; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 5px; text-align: left; }
+        .header { text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Extra Items</h2>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Serial No.</th>
+                    <th>Remark</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Unit</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in data["items"] %}
+                    <tr>
+                        <td>{{ item.serial_no | default("") }}</td>
+                        <td>{{ item.remark | default("") }}</td>
+                        <td>{{ item.description | default("") }}</td>
+                        <td>{{ item.quantity | default("") }}</td>
+                        <td>{{ item.unit | default("") }}</td>
+                        <td>{{ item.rate | default("") }}</td>
+                        <td>{{ item.amount | default("") }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+{% macro format_percent(value) %}
+    {{ "{:.2%}".format(value) if value is not none else "" }}
+{% endmacro %}

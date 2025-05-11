@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FINAL BILL SCRUTINY SHEET</title>
+    <style>
+        body { font-family: Calibri, sans-serif; font-size: 9pt; margin: 0; }
+        .container { width: 210mm; min-height: 287mm; margin: 10mm 0; padding: 0; box-sizing: border-box; }
+        table { width: 100%; max-width: 210mm; border-collapse: collapse; table-layout: fixed; }
+        th, td { padding: 5px; vertical-align: top; overflow: hidden; border: 1px solid black; }
+        th:nth-child(1), td:nth-child(1) { width: 10mm; }
+        th:nth-child(2), td:nth-child(2) { width: 80mm; }
+        th:nth-child(3), td:nth-child(3) { width: 90mm; }
+        .header { text-align: center; margin-bottom: 10px; }
+        .note-cell { white-space: pre-wrap; text-align: justify; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>FINAL BILL SCRUTINY SHEET</h2>
+            <p>First & Final Bill Agreement No. {{ data.agreement_no }}</p>
+        </div>
+        <table class="specific-table">
+            <tbody>
+                <tr><td>1</td><td>Chargeable Head</td><td>8443-00-108-00-00</td></tr>
+             <tr><td>2</td><td>Agreement No.</td><td>{{ data.agreement_no }}</td></tr>
+             <tr><td>3</td><td>Adm. Section</td><td></td></tr>
+             <tr><td>4</td><td>Tech. Section</td><td></td></tr>
+             <tr><td>5</td><td>M.B No.</td><td>887/Pg. No. 04-20</td></tr>
+             <tr><td>6</td><td>Name of Sub Dn</td><td>Rajsamand</td></tr>
+             <tr><td>7</td><td>Name of Work</td><td>{{ data.name_of_work }}</td></tr>
+             <tr><td>8</td><td>Name of Firm</td><td>{{ data.name_of_firm }}</td></tr>
+             <tr><td>9</td><td>Original/Deposit</td><td>Deposit</td></tr>
+             <tr><td>10</td><td>Whether any notice issued</td><td></td></tr>
+             <tr><td>11</td><td>Date of Commencement</td><td>{{ data.date_commencement }}</td></tr>
+             <tr><td>12</td><td>Date of Completion</td><td>{{ data.date_completion }}</td></tr>
+             <tr><td>13</td><td>Actual Date of Completion</td><td>{{ data.actual_completion }}</td></tr>
+             <tr><td>14</td><td>In case of delay weather, Provisional Extension Granted</td><td>Yes. Time Extension sanctioned is enclosed proposing 18 days delay on part of the contractor and remaining on Govt. The case is to be approved by this office.</td></tr>
+             <tr><td>15</td><td>Whether any notice issued</td><td></td></tr>
+             <tr><td>16</td><td>Amount of Work Order Rs.</td><td>{{ data.work_order_amount }}</td></tr>
+             <tr><td>17</td><td>Actual Expenditure up to this Bill Rs.</td><td>{{ data['totals']['grand_total'] }}</td></tr>
+             <tr><td>18</td><td>Balance to be done Rs.</td><td>{{ (data.work_order_amount | int - data['totals']['grand_total'] | int) if data['totals']['grand_total'] | int < data.work_order_amount | int else "NIL" }}</td></tr>
+             <tr><td></td><td>Net Amount of This Bill Rs.</td><td>{{ data['totals']['grand_total'] }}</td></tr>
+             <tr><td>19</td><td>Prorata Progress on the Work maintained by the Firm</td><td>Till date 330.92% Work is executed</td></tr>
+             <tr><td>20</td><td>Date on Which record Measurement taken by JEN AC</td><td></td></tr>
+             <tr><td>21</td><td>Date of Checking and % on the Checked By AEN</td><td></td></tr>
+             <tr><td>22</td><td>No. Of selection item checked by the EE</td><td></td></tr>
+             <tr><td>23</td><td>Other Inputs</td><td></td></tr>
+             <tr><td></td><td>(A) Is It a Repair / Maintenance Work</td><td>No</td></tr>
+             <tr><td></td><td>(B) Extra Item</td><td>{% if data['totals']['extra_items_sum'] > 0 %}Yes{% else %}No{% endif %}</td></tr>
+             <tr><td></td><td>Amount of Extra Items Rs.</td><td>{{ data['totals']['extra_items_sum'] if data['totals']['extra_items_sum'] > 0 else '' }}</td></tr>
+             <tr><td></td><td>(C) Any Excess Item Executed?</td><td>No</td></tr>
+             <tr><td></td><td>(D) Any Inadvertent Delay in Bill Submission?</td><td>No</td></tr>
+             <tr><td></td><td>Deductions:-</td><td></td></tr>
+             <tr><td></td><td>S.D.II</td><td>{{ (data.totals.grand_total | int * 0.10) | round(0) }}</td></tr>
+             <tr><td></td><td>I.T.</td><td>{{ (data.totals.grand_total | int * 0.02) | round(0) }}</td></tr>
+             <tr><td></td><td>GST</td><td>{{ (data.totals.grand_total | int * 0.02) | round(0, "ceil") | int // 2 * 2 }}</td></tr>
+             <tr><td></td><td>L.C.</td><td>{{ (data.totals.grand_total | int * 0.01) | round(0) }}</td></tr>
+             <tr><td></td><td>Liquidated Damages (Recovery)</td><td></td></tr>
+             <tr><td></td><td>Cheque</td><td>{{ data.totals.grand_total | int - ((data.totals.grand_total | int * 0.10) | round(0) + (data.totals.grand_total | int * 0.02) | round(0) + (data.totals.grand_total | int * 0.02) | round(0, "ceil") | int // 2 * 2 + (data.totals.grand_total | int * 0.01) | round(0)) }}</td></tr>
+             <tr><td></td><td>Total</td><td>{{ data.totals.grand_total }}</td></tr>
+                <tr><td>2</td><td>Agreement No.</td><td>{{ data.agreement_no }}</td></tr>
+                <tr><td>3</td><td>Adm. Section</td><td></td></tr>
+                <tr><td>4</td><td>Tech. Section</td><td></td></tr>
+                <tr><td>5</td><td>M.B No.</td><td>887/Pg. No. 04-20</td></tr>
+                <tr><td>6</td><td>Name of Sub Dn</td><td>Rajsamand</td></tr>
+                <tr><td>7</td><td>Name of Work</td><td>{{ data.name_of_work }}</td></tr>
+                <tr><td>8</td><td>Name of Firm</td><td>{{ data.name_of_firm }}</td></tr>
+                <tr><td>9</td><td>Original/Deposit</td><td>Deposit</td></tr>
+                <tr><td>11</td><td>Date of Commencement</td><td>{{ data.date_commencement }}</td></tr>
+                <tr><td>12</td><td>Date of Completion</td><td>{{ data.date_completion }}</td></tr>
+                <tr><td>13</td><td>Actual Date of Completion</td><td>{{ data.actual_completion }}</td></tr>
+                <tr><td>14</td><td>In case of delay weather, Provisional Extension Granted</td><td>Yes. Time Extension sanctioned is enclosed proposing 18 days delay on part of the contractor and remaining on Govt. The case is to be approved by this office.</td></tr>
+                <tr><td>15</td><td>Whether any notice issued</td><td></td></tr>
+                <tr><td>16</td><td>Amount of Work Order Rs.</td><td>{{ data.work_order_amount }}</td></tr>
+                <tr><td>17</td><td>Actual Expenditure up to this Bill Rs.</td><td>{{ data.totals.payable }}</td></tr>
+                <tr><td>18</td><td>Balance to be done Rs.</td><td>{{ (data.work_order_amount | int - data.totals.payable | int) if data.totals.payable | int < data.work_order_amount | int else "NIL" }}</td></tr>
+                <tr><td></td><td>Net Amount of This Bill Rs.</td><td>{{ data.totals.payable }}</td></tr>
+                <tr><td>19</td><td>Prorata Progress on the Work maintained by the Firm</td><td>Till date 131.06% Work is executed                <tr><td>20</td><td>Date on Which record Measurement taken by JEN AC</td><td></td></tr>
+                <tr><td>21</td><td>Date of Checking and % on the Checked By AEN</td><td></td></tr>
+                <tr><td>22</td><td>No. Of selection item checked by the EE</td><td></td></tr>
+                <tr><td>23</td><td>Other Inputs</td><td></td></tr>
+                <tr><td></td><td>(A) Is It a Repair / Maintenance Work</td><td>No</td></tr>
+                <tr><td></td><td>(B) Extra Item</td><td>{% if data.totals.extra_items_sum > 0 %}Yes{% else %}No{% endif %}</td></tr>
+                <tr><td></td><td>Amount of Extra Items Rs.</td><td>{{ data.totals.extra_items_sum if data.totals.extra_items_sum > 0 else '' }}</td></tr>
+                <tr><td></td><td>(C) Any Excess Item Executed?</td><td>No</td></tr>
+                <tr><td></td><td>(D) Any Inadvertent Delay in Bill Submission?</td><td>No</td></tr>
+                <tr><td></td><td>Deductions:-</td><td></td></tr>
+                <tr><td></td><td>S.D.II</td><td>{{ (data.totals.payable | int * 0.10) | round(0) }}</td></tr>
+                <tr><td></td><td>I.T.</td><td>{{ (data.totals.payable | int * 0.02) | round(0) }}</td></tr>
+                <tr><td></td><td>GST</td><td>{{ (data.totals.payable | int * 0.02) | round(0, "ceil") | int // 2 * 2 }}</td></tr>
+                <tr><td></td><td>L.C.</td><td>{{ (data.totals.payable | int * 0.01) | round(0) }}</td></tr>
+                <tr><td></td><td>Liquidated Damages (Recovery)</td><td></td></tr>
+                <tr><td></td><td>Cheque</td><td>{{ data.totals.payable | int - ((data.totals.payable | int * 0.10) | round(0) + (data.totals.payable | int * 0.02) | round(0) + (data.totals.payable | int * 0.02) | round(0, "ceil") | int // 2 * 2 + (data.totals.payable | int * 0.01) | round(0)) }}</td></tr>
+                <tr><td></td><td>Total</td><td>{{ data.totals.payable }}</td></tr>
+                <tr><td colspan="3" class="note-cell">
+                    <ol>
+                        {% for note in data.notes %}
+                        <li>{{ note }}</li>
+                        {% endfor %}
+                    </ol>
+                </td></tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
