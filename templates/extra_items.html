@@ -2,49 +2,183 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Extra Items</title>
+    <title>EXTRA ITEM SLIP</title>
     <style>
-        body { font-family: Calibri, sans-serif; font-size: 9pt; margin: 0; }
-        .container { width: 190mm; min-height: 287mm; margin: 10mm auto; padding: 10mm; box-sizing: border-box; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { border: 1px solid black; padding: 5px; text-align: left; }
-        .header { text-align: center; }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            font-size: 8pt;
+        }
+        .container {
+            margin: 14mm 14mm 10mm 14mm;
+            width: 182mm;
+            min-height: 287mm;
+            box-sizing: border-box;
+        }
+        .table-wrapper {
+            width: 100%;
+            overflow: hidden;
+            border: 0.026mm solid black;
+        }
+        table {
+            width: 100%;
+            max-width: 182mm;
+            border-collapse: collapse;
+            table-layout: fixed;
+            margin: 0 auto;
+            margin-bottom: 15mm;
+            border: 0.026mm solid black;
+        }
+        th, td {
+            border: 0.026mm solid black;
+            padding: 0.6mm;
+            text-align: left;
+            vertical-align: top;
+            overflow: hidden;
+        }
+        th {
+            font-weight: bold;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .header {
+            text-align: left;
+            margin-bottom: 10mm;
+        }
+        .header p {
+            margin: 2mm 0;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        .underline {
+            text-decoration: underline;
+        }
+        .center-align {
+            text-align: center;
+        }
+        .description {
+            text-align: justify;
+            overflow-wrap: break-word;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h2>Extra Items</h2>
+            <h2>EXTRA ITEM SLIP</h2>
+            <p>Name of Work: Electric Repair and MTC work at Govt. Ambedkar Hostel, Ambamata, Govardhanvilas, Udaipur</p>
+            <p>Bill Number: First & Final Bill</p>
+            <p>Agency Name: M/s Seema Electrical Udaipur</p>
         </div>
         <table>
             <thead>
                 <tr>
-                    <th>Serial No.</th>
-                    <th>Remark</th>
-                    <th>Description</th>
-                    <th>Quantity</th>
-                    <th>Unit</th>
-                    <th>Rate</th>
-                    <th>Amount</th>
+                    <th style="width: 10.06mm;">Unit</th>
+                    <th style="width: 13.76mm;">Quantity executed (or supplied) since last certificate</th>
+                    <th style="width: 13.76mm;">Quantity executed (or supplied) upto date as per MB</th>
+                    <th style="width: 9.55mm;">Item No.</th>
+                    <th style="width: 63.83mm;">Item of Work supplies (Grouped under "sub-head" and "sub work" of estimate)</th>
+                    <th style="width: 13.16mm;">Rate</th>
+                    <th style="width: 19.53mm;">Amount upto date</th>
+                    <th style="width: 15.15mm;">Amount Since previous bill (Total for each sub-head)</th>
+                    <th style="width: 11.96mm;">Remark</th>
                 </tr>
             </thead>
             <tbody>
-                {% for item in data["items"] %}
-                    <tr>
-                        <td>{{ item.serial_no | default("") }}</td>
-                        <td>{{ item.remark | default("") }}</td>
-                        <td>{{ item.description | default("") }}</td>
-                        <td>{{ item.quantity | default("") }}</td>
-                        <td>{{ item.unit | default("") }}</td>
-                        <td>{{ item.rate | default("") }}</td>
-                        <td>{{ item.amount | default("") }}</td>
-                    </tr>
-                {% endfor %}
+                <tr>
+                    <td style="width: 10.06mm;">Each</td>
+                    <td style="width: 13.76mm;">2</td>
+                    <td style="width: 13.76mm;">2</td>
+                    <td style="width: 9.55mm;">E-01</td>
+                    <td class="description" style="width: 63.83mm;">Minimum lumen output 2500 lm Post top Luminarie</td>
+                    <td style="width: 13.16mm;">5075</td>
+                    <td style="width: 19.53mm;">10150</td>
+                    <td style="width: 15.15mm;">10150</td>
+                    <td style="width: 11.96mm;"></td>
+                </tr>
+                <tr>
+                    <td style="width: 10.06mm;">Each</td>
+                    <td style="width: 13.76mm;">4</td>
+                    <td style="width: 13.76mm;">4</td>
+                    <td style="width: 9.55mm;">E-02</td>
+                    <td class="description" style="width: 63.83mm;">6 A 3/5 pin shuttered socket</td>
+                    <td style="width: 13.16mm;">107</td>
+                    <td style="width: 19.53mm;">428</td>
+                    <td style="width: 15.15mm;">428</td>
+                    <td style="width: 11.96mm;"></td>
+                </tr>
+                <tr>
+                    <td style="width: 10.06mm;">Each</td>
+                    <td style="width: 13.76mm;">5</td>
+                    <td style="width: 13.76mm;">5</td>
+                    <td style="width: 9.55mm;">E-03</td>
+                    <td class="description" style="width: 63.83mm;">6/16 A shuttered socket</td>
+                    <td style="width: 13.16mm;">176</td>
+                    <td style="width: 19.53mm;">880</td>
+                    <td style="width: 15.15mm;">880</td>
+                    <td style="width: 11.96mm;"></td>
+                </tr>
+                <tr>
+                    <td style="width: 10.06mm;">Each</td>
+                    <td style="width: 13.76mm;">5</td>
+                    <td style="width: 13.76mm;">5</td>
+                    <td style="width: 9.55mm;">E-04</td>
+                    <td class="description" style="width: 63.83mm;">Providing & Fixing of modular type lockable feature socket</td>
+                    <td style="width: 13.16mm;">345</td>
+                    <td style="width: 19.53mm;">1725</td>
+                    <td style="width: 15.15mm;">1725</td>
+                    <td style="width: 11.96mm;"></td>
+                </tr>
+                <tr>
+                    <td style="width: 10.06mm;">Each</td>
+                    <td style="width: 13.76mm;">4</td>
+                    <td style="width: 13.76mm;">4</td>
+                    <td style="width: 9.55mm;">E-05</td>
+                    <td class="description" style="width: 63.83mm;">6 A 3/5 pin shuttered socket</td>
+                    <td style="width: 13.16mm;">107</td>
+                    <td style="width: 19.53mm;">428</td>
+                    <td style="width: 15.15mm;">428</td>
+                    <td style="width: 11.96mm;">Duplicate serial retained</td>
+                </tr>
+                <tr>
+                    <td style="width: 10.06mm;">Each</td>
+                    <td style="width: 13.76mm;">5</td>
+                    <td style="width: 13.76mm;">5</td>
+                    <td style="width: 9.55mm;">E-06</td>
+                    <td class="description" style="width: 63.83mm;">6/16 A shuttered socket</td>
+                    <td style="width: 13.16mm;">176</td>
+                    <td style="width: 19.53mm;">880</td>
+                    <td style="width: 15.15mm;">880</td>
+                    <td style="width: 11.96mm;">Duplicate serial retained</td>
+                </tr>
+                <tr>
+                    <td colspan="4"></td>
+                    <td>Grand Total</td>
+                    <td></td>
+                    <td>14491</td>
+                    <td>14491</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="4"></td>
+                    <td>Tender Premium @ 1.11%</td>
+                    <td>1.11%</td>
+                    <td>161</td>
+                    <td>161</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td colspan="4"></td>
+                    <td>Total including Tender Premium</td>
+                    <td></td>
+                    <td>14652</td>
+                    <td>14652</td>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
     </div>
 </body>
 </html>
-{% macro format_percent(value) %}
-    {{ "{:.2%}".format(value) if value is not none else "" }}
-{% endmacro %}
